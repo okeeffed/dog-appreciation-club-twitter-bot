@@ -18,20 +18,18 @@ const routes = require('./routes');
 
 // Twitter
 const Twitter = require('./controllers/twitter');
-// Twitter.init()
-// 	.then(res => console.log(res))
-// 	.catch(err => console.log(err));
-
-const Doggo = require('./controllers/doggo');
-Doggo.fetch()
-	.then(res => console.log(res))
-	.catch(err => console.log(err));
 
 // App Setup
 app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
 
+var CronJob = require('cron').CronJob;
+new CronJob('00 00 9 * * 0-6', function () {
+	Twitter.init()
+	.then(data => console.log('Success tweet!'))
+	.catch(err => console.log(err.message));
+}, null, true, 'Australia/Sydney');
 
 // Map routes to URL
 routes(app);

@@ -1,4 +1,5 @@
 const Twitter = require('twitter');
+const Doggo = require('./doggo');
 
 function init() {
 	return new Promise((resolve, reject) => {
@@ -9,8 +10,22 @@ function init() {
 			access_token_secret: process.env.TWITTER_TOKEN_SECRET
 		});
 
-		post('Testing', client)
-			.then(res => resolve(res))
+		Doggo.fetch()
+			.then(res => {
+				const limit = 136;
+				if (typeof res.data.dog.info[0] !== 'undefined') {
+					var info = `${res.data.dog.name} - ${res.data.dog.info[0]}`;
+				} else {
+					var info = `${res.data.dog.name} - find out about this doggo and more at https://dogappreciation.club`;
+				}
+				const update = info.substring(0, limit);
+				// const tweet = `${update}... ${res.data.photos[0].url}`;
+				const tweet = `${update}...`;
+
+				post(tweet, client)
+					.then(res => resolve(res))
+					.catch(err => reject(err));
+			})
 			.catch(err => reject(err));
 	});
 }
