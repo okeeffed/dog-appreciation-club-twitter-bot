@@ -27,18 +27,9 @@ app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
 
-// var mongodb = require('./database/mongo_database');
-// var sqldb = require('./database/sql_database');
-// var seed = require('./seed');
-
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
 
 // Map routes to URL
 routes(app);
-
-
 
 // Server Setup
 const port = process.env.PORT || 3090;
