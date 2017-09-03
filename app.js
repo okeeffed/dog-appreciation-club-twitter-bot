@@ -13,14 +13,14 @@ const morgan = require('morgan');
 const app = express();
 const cors = require('cors');
 
-// DBs
-
-
 // Routes Setup
 const routes = require('./routes');
 
-
-
+// Twitter
+const Twitter = require('./controllers/twitter');
+Twitter.init()
+	.then(res => console.log(res))
+	.catch(err => console.log(err));
 
 // App Setup
 app.use(morgan('combined'));
@@ -32,7 +32,7 @@ app.use(bodyParser.json({ type: '*/*' }));
 routes(app);
 
 // Server Setup
-const port = process.env.PORT || 3090;
+const port = process.env.NODE_ENV == 'production' ? 80 : 3090;
 const server = http.createServer(app);
 server.listen(port);
 console.log('Server listening on:', port);
