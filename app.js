@@ -24,6 +24,9 @@ app.use(morgan('combined'));
 app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
 
+/**
+ * Run the cron job at 9am each day
+ */
 var CronJob = require('cron').CronJob;
 new CronJob('00 00 9 * * 0-6', function () {
 	Twitter.init()

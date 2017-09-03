@@ -1,6 +1,11 @@
 const Twitter = require('twitter');
 const Doggo = require('./doggo');
 
+/**
+ * Initialise the Twitter client, fetch the dog info and then
+ * post the tweet
+ * @return {Object} Return the error or successful reply
+ */
 function init() {
 	return new Promise((resolve, reject) => {
 		const client = new Twitter({
@@ -30,6 +35,12 @@ function init() {
 	});
 }
 
+/**
+ * Post a tweet
+ * @param  {String} tweet  Tweet string
+ * @param  {Twitter} client Client instance of Twitter package
+ * @return {Object}        Return error or success object
+ */
 function post(tweet, client) {
 	return new Promise((resolve, reject) => {
 		client.post('statuses/update', {status: tweet})
