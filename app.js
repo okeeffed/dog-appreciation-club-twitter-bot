@@ -18,7 +18,12 @@ const routes = require('./routes');
 
 // Twitter
 const Twitter = require('./controllers/twitter');
-Twitter.init()
+// Twitter.init()
+// 	.then(res => console.log(res))
+// 	.catch(err => console.log(err));
+
+const Doggo = require('./controllers/doggo');
+Doggo.fetch()
 	.then(res => console.log(res))
 	.catch(err => console.log(err));
 
